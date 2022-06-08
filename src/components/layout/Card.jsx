@@ -19,22 +19,23 @@ const StyledCard = styled(Card)(({theme}) => ({
   textAlign: "center"
 }))
 
-export default function MediaCard() {
+export default function MediaCard({userData}) {
+
+  console.log(userData)
   return (
     <StyledCard >
       <Stack   direction="column" justifyContent="center" alignItems="center" >
       <CardMedia
         component="img"
-        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZC75H3iMyA-ksbRAU7h08A2xQBXJll-Oyfw&usqp=CAU"
+        image={userData.avatar_url}
         sx={{ borderRadius: '50px', width: "100px", mt: "10px" }}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">ismetkync</Typography>
-        <Typography variant="body2" color="inherit">İsmet Ömer Koyuncu</Typography>
+        <Typography gutterBottom variant="h5" component="div">{userData.login}</Typography>
       </CardContent>
       <CardActions>
         <Button variant="outlined" size="small" color="inherit" >
-          <Link to={`/users/ismetkync`}>Visit Profile</Link> 
+          <Link to={`/users/${userData.login}`}>Visit Profile</Link> 
         </Button>
       </CardActions>
       </Stack>

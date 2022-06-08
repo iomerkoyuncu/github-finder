@@ -5,15 +5,19 @@ import Navbar from "./components/layout/Navbar";
 import Main from "./components/layout/Main";
 import Footer from "./components/layout/Footer";
 
+import { GithubProvider } from "./context/GithubContext";
+
 function App() {
 	return (
-		<Router>
-			<div className='flex flex-col justify-between h-screen'>
-				<Navbar />
-				<Main />
-				<Footer />
-			</div>
-		</Router>
+		<GithubProvider>
+			<Router>
+				<div className='flex flex-col justify-between h-screen'>
+					<Navbar />
+					<Main />
+					<Footer />
+				</div>
+			</Router>
+		</GithubProvider>
 	);
 }
 

@@ -8,9 +8,6 @@ import InputBase from "@mui/material/InputBase";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SearchIcon from "@mui/icons-material/Search";
 
-
-
-
 const StyledToolbar = styled(Toolbar)({
 	backgroundColor: theme.palette.primary.dark,
 	color: theme.palette.primary.contrastText,
@@ -73,6 +70,7 @@ export default function Navbar() {
 					<StyledInputBase
 						placeholder='Search…'
 						inputProps={{ "aria-label": "search" }}
+						onChange={(e) => console.log(e.target.value)}
 					/>
 				</Search>
 				<Stack direction='row' spacing={5} justifyContent="center" alignItems="center">
