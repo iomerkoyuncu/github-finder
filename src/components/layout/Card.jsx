@@ -20,8 +20,6 @@ const StyledCard = styled(Card)(({theme}) => ({
 }))
 
 export default function MediaCard({userData}) {
-
-  console.log(userData)
   return (
     <StyledCard >
       <Stack   direction="column" justifyContent="center" alignItems="center" >
@@ -35,7 +33,7 @@ export default function MediaCard({userData}) {
       </CardContent>
       <CardActions>
         <Button variant="outlined" size="small" color="inherit" >
-          <Link to={`/users/${userData.login}`}>Visit Profile</Link> 
+          <Link to={`/user/${userData.login}`}>Visit Profile</Link> 
         </Button>
       </CardActions>
       </Stack>
