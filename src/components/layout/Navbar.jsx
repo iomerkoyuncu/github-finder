@@ -1,12 +1,12 @@
 import React from "react";
-import { useState,useContext } from "react";
-import {Link} from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 import GitHubContext from "../../context/GithubContext";
 
 import { theme } from "../theme/theme";
 import { styled, alpha } from "@mui/material/styles";
-import { Box, Typography, AppBar, Toolbar, Stack,Button } from "@mui/material";
+import { Box, Typography, AppBar, Toolbar, Stack, Button } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SearchIcon from "@mui/icons-material/Search";
@@ -34,7 +34,6 @@ const Search = styled("div")(({ theme }) => ({
 	},
 }));
 
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: "inherit",
 	"& .MuiInputBase-input": {
@@ -50,9 +49,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
+	const { users, searchUsers } = useContext(GitHubContext);
 
-	const {users, searchUsers} = useContext(GitHubContext);
-	
 	const [text, setText] = useState("");
 
 	const handleChange = (e) => {
@@ -62,44 +60,50 @@ export default function Navbar() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		if(text){
+		if (text) {
 			searchUsers(text);
-		}else{
+		} else {
 			alert("Please enter a username");
 		}
 
 		setText("");
 	};
 
-
 	return (
 		<AppBar position='sticky'>
 			<StyledToolbar>
-			<Link to="/" ><GitHubIcon /></Link>
-					<Stack>
-				<Search sx={{display: { xs: "none", sm: "block"}}} >
-
-					<InputBase
-						placeholder='Search…'
-						inputProps={{ "aria-label": "search" }}
-						value={text}
-						onChange={handleChange}
-						sx={{
-							px:"10px",
-							color:"inherit"
-						}}
+				<Link to='/'>
+					<GitHubIcon />
+				</Link>
+				<Stack>
+					<Search sx={{ display: { xs: "none", sm: "block" } }}>
+						<InputBase
+							placeholder='Search…'
+							inputProps={{ "aria-label": "search" }}
+							value={text}
+							onChange={handleChange}
+							sx={{
+								px: "10px",
+								color: "inherit",
+							}}
 						/>
-						<Button onClick={handleSubmit} color="inherit">
-							<SearchIcon />
+						<Button onClick={handleSubmit} color='inherit'>
+							<Link to='/'>
+								<SearchIcon />
+							</Link>
 						</Button>
-				</Search>
-					</Stack>
-				<Stack direction='row' spacing={5} justifyContent="center" alignItems="center">
-					<Typography variant='h6' sx={{fontSize: "16px"}} color='inherit'>
-						<Link to="/">Home</Link>
+					</Search>
+				</Stack>
+				<Stack
+					direction='row'
+					spacing={5}
+					justifyContent='center'
+					alignItems='center'>
+					<Typography variant='h6' sx={{ fontSize: "16px" }} color='inherit'>
+						<Link to='/'>Home</Link>
 					</Typography>
-					<Typography sx={{fontSize: "16px"}} variant='h6' color='inherit'>
-						<Link to="/about" >About</Link>
+					<Typography sx={{ fontSize: "16px" }} variant='h6' color='inherit'>
+						<Link to='/about'>About</Link>
 					</Typography>
 				</Stack>
 			</StyledToolbar>

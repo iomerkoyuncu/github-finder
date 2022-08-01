@@ -9,8 +9,9 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 export const GithubProvider = ({ children }) => {
 	const initialState = {
 		users: [],
-		loading: false,
 		user: {},
+		repos: [],
+		loading: false,
 	};
 
 	const [state, dispatch] = useReducer(githubReducer, initialState);
@@ -31,6 +32,26 @@ export const GithubProvider = ({ children }) => {
 		dispatch({
 			type: "GET_USERS",
 			payload: items,
+		});
+	};
+
+	const getUserRepos = async (login) => {
+		setLoading();
+
+		const params = new URLSearchParams({
+			sort: "created",
+			per_page: 10,
+		});
+
+		const res = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
+			headers: {
+				Authorization: `token ${GITHUB_TOKEN}`,
+			},
+		});
+		const data = await res.json();
+		dispatch({
+			type: "GET_REPOS",
+			payload: data,
 		});
 	};
 
@@ -71,10 +92,12 @@ export const GithubProvider = ({ children }) => {
 			value={{
 				users: state.users,
 				user: state.user,
+				repos: state.repos,
 				loading: state.loading,
 				clearUsers,
 				searchUsers,
 				getUser,
+				getUserRepos,
 			}}>
 			{children}
 		</GitHubContext.Provider>

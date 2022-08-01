@@ -1,95 +1,107 @@
-import React from 'react'
-import { useEffect, useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React from "react";
+import { useEffect, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
 
-import GithubContext from "../../context/GithubContext"
+import GithubContext from "../../context/GithubContext";
+import RepoList from "../repos/RepoList";
 
-import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
-import { Button } from '@mui/material'
-import Spinner from '../../assets/spinner.gif'
+import { Button } from "@mui/material";
+import Spinner from "../../assets/spinner.gif";
 
 function User() {
-  const {getUser, user, loading} = useContext(GithubContext)
-  const params = useParams()
+	const { getUser, user, loading, getUserRepos, repos } =
+		useContext(GithubContext);
+	const params = useParams();
 
-  useEffect(() => {
-    getUser(params.login)
-  }, [])
+	useEffect(() => {
+		getUser(params.login);
+		getUserRepos(params.login);
+	}, []);
 
-  const {
-    name,
-    type,
-    avatar_url,
-    location,
-    bio,
-    blog,
-    twitter_username,
-    login,
-    html_url,
-    followers,
-    following,
-    public_repos,
-    public_gists,
-    hireable
-  } = user
-  
-  if(loading) {
-    return (
-      <div className='w-100 mt-20' >
-      <img width={120} className="text-center mx-auto" src={Spinner} alt="Loading" />
-    </div>
-    )
-  }
+	const {
+		name,
+		type,
+		avatar_url,
+		location,
+		bio,
+		blog,
+		twitter_username,
+		login,
+		html_url,
+		followers,
+		following,
+		public_repos,
+	} = user;
 
-  return (
-    <>
-      <div className="flex flex-row">
-        <div className="flex flex-col w-1/2">
-          <div className="flex flex-col justify-center">
-            <img className="rounded-full w-32 h-32 mx-auto" src={avatar_url} alt="User" />
-            <h1 className="text-center text-2xl font-bold mt-2">{name}</h1>
-            <h2 className="text-center text-lg font-bold mt-2">{login}</h2>
-            <h3 className="text-center text-lg font-bold mt-2">{type}</h3>
-            <h3 className="text-center text-lg font-bold mt-2">{location}</h3>
-            <h3 className="text-center text-lg font-bold mt-2">{bio}</h3>
-            <h3 className="text-center text-lg font-bold mt-2">{blog}</h3>
-            <h3 className="text-center text-lg font-bold mt-2">{twitter_username}</h3>
-            <h3 className="text-center text-lg font-bold mt-2">{hireable}</h3>
+	if (loading) {
+		return (
+			<div className='w-100 mt-20'>
+				<img
+					width={120}
+					className='text-center mx-auto'
+					src={Spinner}
+					alt='Loading'
+				/>
+			</div>
+		);
+	}
 
-            <div className="flex flex-row justify-center">
-              <div className="flex flex-col text-white">
-                <h3 className="text-center text-lg font-bold mt-2">{followers}</h3>
-                <h3 className="text-center text-lg font-bold mt-2">{following}</h3>
-              </div>
-              <div className="flex flex-col">
-                <h3 className="text-center text-lg font-bold mt-2">{public_repos}</h3>
-                <h3 className="text-center text-lg font-bold mt-2">{public_gists}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col w-1/2">
-          <div className="flex flex-col justify-center">
-            <h1 className="text-center text-2xl font-bold mt-2">Repositories</h1>
-            <div className="flex flex-row justify-center">
-              <div className="flex flex-col">
-                <h3 className="text-center text-lg font-bold mt-2">{public_repos}</h3>
-                <h3 className="text-center text-lg font-bold mt-2">{public_gists}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </>
-  )
+	return (
+		<>
+			<div className='m-3 text-center'>
+				<Link to='/'>
+					<Button variant='outlined' color='secondary'>
+						BACK TO SEARCH
+					</Button>
+				</Link>
+			</div>
+			<div className='flex justify-center '>
+				<div className='bg-zinc-800 p-5 m-3 rounded-lg'>
+					<div className='flex flex-row p-2 text-white items-center'>
+						<div className='basis-1/4'>
+							<img
+								className='w-100 h-auto mx-auto rounded-full shadow-lg border-2 border-zinc-700 shadow-lg'
+								src={avatar_url}
+								alt={name}
+							/>
+						</div>
+						<div className='basis-3/4 p-5'>
+							<div className='flex flex-row justify-between'>
+								<div className='basis-1/2'>
+									<h1 className='text-2xl font-bold '>{name}</h1>
+									<p className='text-sm'>{login}</p>
+									<p className='my-3'>{bio}</p>
+								</div>
+								<div className='basis-1/2 text-right'>
+									<p>{location}</p>
+									<p>{blog}</p>
+								</div>
+							</div>
+							<div className='flex flex-row my-5'>
+								<div className='basis-1/3 flex flex-row justify-between m-2 p-2 border-2 border-zinc-700 shadow-lg'>
+									<p>Following</p>
+									<p>{following}</p>
+								</div>
+								<div className='basis-1/3 flex flex-row justify-between m-2 p-2  border-2 border-zinc-700 shadow-lg'>
+									<p>Followers</p>
+									<p>{followers}</p>
+								</div>
+								<div className='basis-1/3 flex flex-row justify-between m-2 p-2  border-2 border-zinc-700 shadow-lg'>
+									<p>Repositories</p>
+									<p>{public_repos}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{repos.length > 0 && (
+						<div>
+							<RepoList repos={repos} />
+						</div>
+					)}
+				</div>
+			</div>
+		</>
+	);
 }
 
-export default User
-
-/*
-        <div className="mb-4 text-center">
-          <Link to="/">
-            <Button variant="outlined" color="secondary">BACK TO SEARCH</Button>
-          </Link>
-        </div>
-*/
+export default User;
