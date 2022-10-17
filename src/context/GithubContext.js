@@ -23,11 +23,7 @@ export const GithubProvider = ({ children }) => {
 			q: text,
 		});
 
-		const res = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-			headers: {
-				Authorization: `token ${GITHUB_TOKEN}`,
-			},
-		});
+		const res = await fetch(`${GITHUB_URL}/search/users?${params}`);
 		const { items } = await res.json();
 		dispatch({
 			type: "GET_USERS",
@@ -43,11 +39,7 @@ export const GithubProvider = ({ children }) => {
 			per_page: 10,
 		});
 
-		const res = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
-			headers: {
-				Authorization: `token ${GITHUB_TOKEN}`,
-			},
-		});
+		const res = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`);
 		const data = await res.json();
 		dispatch({
 			type: "GET_REPOS",
@@ -58,11 +50,7 @@ export const GithubProvider = ({ children }) => {
 	const getUser = async (login) => {
 		setLoading();
 
-		const res = await fetch(`${GITHUB_URL}/users/${login}`, {
-			headers: {
-				Authorization: `token ${GITHUB_TOKEN}`,
-			},
-		});
+		const res = await fetch(`${GITHUB_URL}/users/${login}`);
 
 		if (res.status === 404) {
 			window.location.href = "/*";

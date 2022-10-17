@@ -50,14 +50,14 @@ function User() {
 		<>
 			<div className='m-3 text-center'>
 				<Link to='/'>
-					<Button variant='outlined' color='secondary'>
+					<Button variant='contained' color='secondary'>
 						BACK TO SEARCH
 					</Button>
 				</Link>
 			</div>
-			<div className='flex justify-center '>
-				<div className='bg-zinc-800 p-5 m-3 rounded-lg'>
-					<div className='flex flex-row p-2 text-white items-center'>
+			<div className='flex justify-center text-white'>
+				<div className='bg-[#1B2430] p-5 m-3 rounded-lg'>
+					<div className='flex flex-row p-2 items-center'>
 						<div className='basis-1/4'>
 							<img
 								className='w-100 h-auto mx-auto rounded-full shadow-lg border-2 border-zinc-700 shadow-lg'

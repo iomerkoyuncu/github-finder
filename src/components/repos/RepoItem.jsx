@@ -22,7 +22,7 @@ function RepoItem({ repo }) {
 	} = repo;
 
 	return (
-		<div className='mb-2 rounded-md border-2 border-zinc-700 hover:bg-zinc-700 p-3'>
+		<div className='mb-2 rounded-md border-2 border-zinc-700 hover:bg-zinc-700 hover:text-white p-3'>
 			<div className=''>
 				<h3 className='mb-2 text-xl font-semibold'>
 					<a href={html_url}>

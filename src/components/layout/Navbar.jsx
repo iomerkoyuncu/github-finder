@@ -72,9 +72,13 @@ export default function Navbar() {
 	return (
 		<AppBar position='sticky'>
 			<StyledToolbar>
-				<Link to='/'>
+				<Stack direction='row' spacing={2}>
 					<GitHubIcon />
-				</Link>
+					<Typography variant='h6' sx={{ fontSize: "16px" }} color='inherit'>
+						<Link to='/'>Github Finder</Link>
+					</Typography>
+				</Stack>
+
 				<Stack>
 					<Search sx={{ display: { xs: "none", sm: "block" } }}>
 						<InputBase

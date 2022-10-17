@@ -2,28 +2,17 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
 	typography: {
-		fontFamily: [
-			"-apple-system",
-			"BlinkMacSystemFont",
-			'"Segoe UI"',
-			"Roboto",
-			'"Helvetica Neue"',
-			"Arial",
-			"sans-serif",
-			'"Apple Color Emoji"',
-			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"',
-		].join(","),
+		fontFamily: "Montserrat",
 	},
 	palette: {
 		background: {
-			default: "#263238",
+			default: "#0d1117",
 		},
 		primary: {
 			main: "#1a2327",
 		},
 		secondary: {
-			main: "#fff",
+			main: "#30475E",
 		},
 	},
 });
